@@ -1,4 +1,4 @@
-package bugelniels.seenit.assertion;
+package bugelniels.bugel.assertion;
 
 /**
  * Contains the assertions to be used in any test cases.

@@ -1,4 +1,4 @@
-package bugelniels.seenit.assertion;
+package bugelniels.bugel.assertion;
 
 import java.util.Objects;
 

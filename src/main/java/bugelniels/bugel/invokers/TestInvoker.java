@@ -1,10 +1,10 @@
-package bugelniels.seenit.invokers;
+package bugelniels.bugel.invokers;
 
-import bugelniels.seenit.annotations.AfterAll;
-import bugelniels.seenit.annotations.BeforeAll;
-import bugelniels.seenit.annotations.Test;
-import bugelniels.seenit.assertion.AssertionFail;
-import bugelniels.seenit.assertion.ResultException;
+import bugelniels.bugel.annotations.AfterAll;
+import bugelniels.bugel.annotations.BeforeAll;
+import bugelniels.bugel.annotations.Test;
+import bugelniels.bugel.assertion.AssertionFail;
+import bugelniels.bugel.assertion.ResultException;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.slf4j.Logger;

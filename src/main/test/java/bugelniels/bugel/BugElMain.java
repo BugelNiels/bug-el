@@ -1,12 +1,12 @@
-package bugelniels.seenit;
+package bugelniels.bugel;
 
-import bugelniels.seenit.invokers.TestInvoker;
+import bugelniels.bugel.invokers.TestInvoker;
 
 /**
  * Main used to run all tests in the current package and context. Make sure to add this file to the root package of the
  * test-sources root.
  */
-public class SeeNitMain {
+public class BugElMain {
 
     /**
      * Runs all tests in the current package.
@@ -14,7 +14,7 @@ public class SeeNitMain {
      * @param args Commandline Arguments. Unused for now.
      */
     public static void main(String[] args) {
-        String packageName = SeeNitMain.class.getPackageName();
+        String packageName = BugElMain.class.getPackageName();
         new TestInvoker(packageName).run();
     }
 }

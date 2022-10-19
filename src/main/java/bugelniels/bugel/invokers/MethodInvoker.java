@@ -1,8 +1,8 @@
-package bugelniels.seenit.invokers;
+package bugelniels.bugel.invokers;
 
-import bugelniels.seenit.annotations.AfterEach;
-import bugelniels.seenit.annotations.BeforeEach;
-import bugelniels.seenit.assertion.ResultException;
+import bugelniels.bugel.annotations.AfterEach;
+import bugelniels.bugel.annotations.BeforeEach;
+import bugelniels.bugel.assertion.ResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

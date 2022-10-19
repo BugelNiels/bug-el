@@ -1,9 +1,9 @@
-package bugelniels.seenit;
+package bugelniels.bugel;
 
-import bugelniels.seenit.annotations.BeforeEach;
-import bugelniels.seenit.annotations.Test;
+import bugelniels.bugel.annotations.BeforeEach;
+import bugelniels.bugel.annotations.Test;
 
-import static bugelniels.seenit.assertion.TestAssertions.assertEquals;
+import static bugelniels.bugel.assertion.TestAssertions.assertEquals;
 
 public class TestExample {
 

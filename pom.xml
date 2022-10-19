@@ -9,10 +9,10 @@
     </modelVersion>
 
     <!-- Names -->
-    <groupId>bugelniels.seenit</groupId>
-    <artifactId>see-nit</artifactId>
+    <groupId>bugelniels.bugel</groupId>
+    <artifactId>bug-el</artifactId>
     <version>1.0.0</version>
-    <name>see-nit</name>
+    <name>bug-el</name>
 
     <build>
         <plugins>
