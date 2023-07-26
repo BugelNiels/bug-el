@@ -1,0 +1,49 @@
+<!-- POM specification -->
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                        https://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>
+        4.0.0
+    </modelVersion>
+
+    <!-- Names -->
+    <groupId>bugelniels.bugeltest</groupId>
+    <artifactId>test-bug-el</artifactId>
+    <version>1.0.0</version>
+    <name>test-bug-el</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>bugelniels.bugel</groupId>
+                <artifactId>bug-el-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>unit-tester</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>bugelniels.bugel</groupId>
+            <artifactId>bug-el-maven-plugin</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <!-- implementation details -->
+    <packaging>pom</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+</project>

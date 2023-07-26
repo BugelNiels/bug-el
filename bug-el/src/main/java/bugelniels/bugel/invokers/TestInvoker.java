@@ -3,14 +3,22 @@ package bugelniels.bugel.invokers;
 import bugelniels.bugel.annotations.AfterAll;
 import bugelniels.bugel.annotations.BeforeAll;
 import bugelniels.bugel.annotations.Test;
+import bugelniels.bugel.annotations.TestClass;
 import bugelniels.bugel.assertion.AssertionFail;
 import bugelniels.bugel.assertion.ResultException;
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -42,22 +50,38 @@ public class TestInvoker {
      */
     public void run() {
         Set<Class<?>> classes = findClassesInPackage(packageName);
+        log.info("Finding classes.. " + classes.size() + " classes found.");
         classes.forEach(clazz -> {
+            log.info("Running tests for " + clazz.getSimpleName());
             List<AssertionFail> errors = invokeTestsOfClass(clazz);
             errors.forEach(e -> System.err.println(e.getMessage()));
         });
     }
 
     /**
-     * Retrieves every class in the provided package.
+     * Retrieves every class annotated with @TestClass in the provided package.
      *
      * @param packageName Name of the package to find all the classes in.
      * @return Collection of all classes found within the provided package.
      */
     private Set<Class<?>> findClassesInPackage(String packageName) {
-        // TODO: use non-deprecated version
-        Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
-        return new HashSet<>(reflections.getSubTypesOf(Object.class));
+        URL testClassesURL = null;
+        try {
+            testClassesURL = Paths.get("target", "test-classes").toUri().toURL();
+        } catch (MalformedURLException e) {
+            log.error("Failed to construct proper path");
+            return Set.of();
+        }
+
+        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{testClassesURL},
+                ClasspathHelper.staticClassLoader());
+
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .addUrls(ClasspathHelper.forPackage(packageName, classLoader))
+                .filterInputsBy(new FilterBuilder().includePackage(packageName))
+                .addClassLoaders(classLoader)
+                .setScanners(Scanners.TypesAnnotated));
+        return new HashSet<>(reflections.getTypesAnnotatedWith(TestClass.class));
     }
 
     /**
