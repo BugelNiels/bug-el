@@ -25,7 +25,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     # Third step is to finally run our maven command. Note -B to run in "batch mode", which means no color output.
-    - name: Build with Maven
+    - name: Build bug-el library
       run: |
-        echo "Building project see-nit"
+        cd bug-el
         mvn -B test --file pom.xml
