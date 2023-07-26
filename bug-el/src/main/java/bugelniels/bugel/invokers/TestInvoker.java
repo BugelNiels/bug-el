@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -29,6 +26,7 @@ public class TestInvoker {
     private static final Logger log = LoggerFactory.getLogger(TestInvoker.class);
 
     private final String packageName;
+    private final URLClassLoader classLoader;
 
     /**
      * Creates a new test invoker that will be able to invoke any methods annotated with @Test in the provided package.
@@ -39,9 +37,11 @@ public class TestInvoker {
      * test-sources root.
      *
      * @param packageName The name of the package containing all classes to test.
+     * @param classLoader The classLoader required for searching the test files.
      */
-    public TestInvoker(String packageName) {
+    public TestInvoker(String packageName, URLClassLoader classLoader) {
         this.packageName = packageName;
+        this.classLoader = classLoader;
     }
 
     /**
@@ -65,17 +65,6 @@ public class TestInvoker {
      * @return Collection of all classes found within the provided package.
      */
     private Set<Class<?>> findClassesInPackage(String packageName) {
-        URL testClassesURL = null;
-        try {
-            testClassesURL = Paths.get("target", "test-classes").toUri().toURL();
-        } catch (MalformedURLException e) {
-            log.error("Failed to construct proper path");
-            return Set.of();
-        }
-
-        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{testClassesURL},
-                ClasspathHelper.staticClassLoader());
-
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .addUrls(ClasspathHelper.forPackage(packageName, classLoader))
                 .filterInputsBy(new FilterBuilder().includePackage(packageName))
